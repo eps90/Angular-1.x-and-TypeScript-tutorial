@@ -22,26 +22,11 @@ describe('ProductsService', () => {
     });
 
     it("should return products it has", () => {
-        var phoneProduct = new MyShop.Product();
-        phoneProduct.name = "jPhone 8";
-        phoneProduct.price = 999.99;
-        phoneProduct.description = "A super modern smartphone!";
+        var products: MyShop.Product[] = [];
 
-        var tvProduct = new MyShop.Product();
-        tvProduct.name = "GL 610";
-        tvProduct.price = 1119.99;
-        tvProduct.description = "UltraHD TV with super awesome remote controller made of glass!";
-
-        var laptopProduct = new MyShop.Product();
-        laptopProduct.name = "Venolo G510";
-        laptopProduct.price = 345.99;
-        laptopProduct.description = "New Venolo's product, super thin and super fast laptop!";
-
-        var products: MyShop.Product[] = [
-            phoneProduct,
-            tvProduct,
-            laptopProduct
-        ];
+        products.push(new MyShop.Product("jPhone 8", 999.99, "A super modern smartphone!"));
+        products.push(new MyShop.Product("GL 610", 1119.99, "UltraHD TV with super awesome remote controller made of glass!"));
+        products.push(new MyShop.Product("Venolo G510", 345.99, "New Venolo's product, super thin and super fast laptop!"));
 
         ProductsService.setProducts(products);
 

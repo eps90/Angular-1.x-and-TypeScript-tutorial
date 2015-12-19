@@ -4,9 +4,7 @@
 
 module MyShop {
     export class Product {
-        name: string = '';
-        price: number = 0;
-        description: string = '';
+        constructor (private name: string, private price: number, private description: string) {}
     }
 
     export class ProductsService {

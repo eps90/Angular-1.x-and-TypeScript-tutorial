@@ -15,5 +15,9 @@ module MyShop {
         getProducts(): Product[] {
             return this.products;
         }
+
+        setProducts(products: Product[]):void {
+            this.products = products;
+        }
     }
 }

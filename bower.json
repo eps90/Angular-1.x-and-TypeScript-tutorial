@@ -1,0 +1,16 @@
+{
+  "name": "angular-ts",
+  "version": "0.1.0",
+  "authors": [
+    "Kuba Turek <ja@kubaturek.pl>"
+  ],
+  "license": "MIT",
+  "homepage": "http://www.kubaturek.pl",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

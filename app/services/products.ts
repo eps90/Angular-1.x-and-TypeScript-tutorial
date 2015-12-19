@@ -10,10 +10,10 @@ module MyShop {
     }
 
     export class ProductsService {
-        private products: Product[];
+        private products: Product[] = [];
 
         getProducts(): Product[] {
-            return null;
+            return this.products;
         }
     }
 }

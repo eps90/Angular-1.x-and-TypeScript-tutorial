@@ -1,12 +1,22 @@
 // test/services/products_test.ts
 
 /// <reference path="../../typings/tsd.d.ts" />
+/// <reference path="../../app/my_shop.ts" />
 /// <reference path="../../app/services/products.ts" />
 
 describe('ProductsService', () => {
+    var ProductsService: MyShop.ProductsService;
+
+    beforeEach(angular.mock.module('MyShop'));
+    beforeEach(inject([
+        'ProductsService',
+        (p) => {
+            ProductsService = p;
+        }
+    ]));
+
     it('should return an empty array if there are no products', () => {
-        var productsService = new MyShop.ProductsService();
-        var products = productsService.getProducts();
+        var products = ProductsService.getProducts();
 
         expect(products.length).toBe(0);
     });
@@ -33,10 +43,9 @@ describe('ProductsService', () => {
             laptopProduct
         ];
 
-        var productsService = new MyShop.ProductsService();
-        productsService.setProducts(products);
+        ProductsService.setProducts(products);
 
-        var actualProducts = productsService.getProducts();
+        var actualProducts = ProductsService.getProducts();
         expect(actualProducts).toEqual(products);
     });
 });

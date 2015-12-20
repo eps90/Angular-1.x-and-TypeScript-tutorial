@@ -1,6 +1,6 @@
 // app/services/products.ts
 
-/// <reference path="../../typings/tsd.d.ts" />
+/// <reference path="../typings.d.ts" />
 
 module MyShop {
     export class Product {

@@ -1,8 +1,6 @@
 // test/services/products_test.ts
 
-/// <reference path="../../typings/tsd.d.ts" />
-/// <reference path="../../app/my_shop.ts" />
-/// <reference path="../../app/services/products.ts" />
+/// <reference path="../../app/typings.d.ts" />
 
 describe('ProductsService', () => {
     var ProductsService: MyShop.ProductsService;

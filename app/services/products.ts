@@ -4,18 +4,29 @@
 
 module MyShop {
     export class Product {
-        constructor (private name: string, private price: number, private description: string) {}
+        constructor (public name: string, public price: number, public description: string) {}
     }
 
     export class ProductsService {
-        private products: Product[] = [];
+        static $inject = ['$http', '$q'];
 
-        getProducts(): Product[] {
-            return this.products;
-        }
+        constructor (private $http: ng.IHttpService, private $q: ng.IQService) {}
 
-        setProducts(products: Product[]):void {
-            this.products = products;
+        getProducts(): ng.IPromise<Product[]> {
+            var deferred = this.$q.defer<Product[]>();
+            this.$http.get<any[]>('/products.json').then((response) => {
+                var products = response.data;
+                var result: Product[] = [];
+
+                for (let i = 0, len = products.length; i < len; i++) {
+                    let product = products[i];
+                    result.push(new Product(product.name, product.price, product.description));
+                }
+
+                deferred.resolve(result);
+            });
+
+            return deferred.promise;
         }
     }
 }

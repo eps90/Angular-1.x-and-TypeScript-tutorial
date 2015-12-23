@@ -3,32 +3,64 @@
 /// <reference path="../../app/typings.d.ts" />
 
 describe('ProductsService', () => {
-    var ProductsService: MyShop.ProductsService;
+    var ProductsService: MyShop.ProductsService,
+        $httpBackend: ng.IHttpBackendService;
 
     beforeEach(angular.mock.module('MyShop'));
     beforeEach(inject([
         'ProductsService',
-        (p) => {
+        '$httpBackend',
+        (p, $hb) => {
             ProductsService = p;
+            $httpBackend = $hb;
         }
     ]));
 
-    it('should return an empty array if there are no products', () => {
-        var products = ProductsService.getProducts();
+    it('should fetch products from API', (done) => {
+        var products = [
+            {
+                name: "jPhone 8",
+                price:  999.99,
+                description: "A super modern smartphone!"
+            },
+            {
+                name: "GL 610",
+                price: 1119.99,
+                description: "UltraHD TV with super awesome remote controller made of glass!"
+            },
+            {
+                name: "Venolo G510",
+                price: 345.99,
+                description: "New Venolo's product, super thin and super fast laptop!"
+            }
+        ];
 
-        expect(products.length).toBe(0);
-    });
+        $httpBackend.expectGET('/products.json').respond(200, products);
 
-    it("should return products it has", () => {
-        var products: MyShop.Product[] = [];
+        ProductsService
+            .getProducts()
+            .then((products: MyShop.Product[]) => {
+                expect(products.length).toEqual(3);
 
-        products.push(new MyShop.Product("jPhone 8", 999.99, "A super modern smartphone!"));
-        products.push(new MyShop.Product("GL 610", 1119.99, "UltraHD TV with super awesome remote controller made of glass!"));
-        products.push(new MyShop.Product("Venolo G510", 345.99, "New Venolo's product, super thin and super fast laptop!"));
+                expect(products[0].name).toEqual("jPhone 8");
+                expect(products[0].price).toEqual(999.99);
+                expect(products[0].description).toEqual("A super modern smartphone!");
 
-        ProductsService.setProducts(products);
+                expect(products[1].name).toEqual("GL 610");
+                expect(products[1].price).toEqual(1119.99);
+                expect(products[1].description).toEqual("UltraHD TV with super awesome remote controller made of glass!");
 
-        var actualProducts = ProductsService.getProducts();
-        expect(actualProducts).toEqual(products);
+                expect(products[2].name).toEqual("Venolo G510");
+                expect(products[2].price).toEqual(345.99);
+                expect(products[2].description).toEqual("New Venolo's product, super thin and super fast laptop!");
+
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+
+        $httpBackend.flush();
+
     });
 });

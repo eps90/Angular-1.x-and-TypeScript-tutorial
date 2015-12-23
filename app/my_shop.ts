@@ -5,4 +5,5 @@
 module MyShop {
     var application = angular.module('MyShop', []);
     application.service('ProductsService', ProductsService);
+    application.service('ProductsFactory', ProductsFactory);
 }

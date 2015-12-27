@@ -29,5 +29,5 @@ tsd rebundle
 Once you have your sources compiled, run
 
 ```sh
-node_modules/.bin/karma start
+grunt test
 ```
